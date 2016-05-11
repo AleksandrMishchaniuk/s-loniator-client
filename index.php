@@ -24,14 +24,15 @@
           <form action="app/scloniator.php" role="form" class="form_word">
             <div class="form-group">
               <label for="input_word">Введите слово</label>
-              <input type="text" class="form-control" id="input_word" 
-                        placeholder="Введите слово" name="word" autofocus>
+              <textarea class="form-control" id="input_word" name="words" autofocus
+                    style="min-height: 300px; resize: vertical;" placeholder="Введите слово"></textarea>
             </div>
             <button type="submit" class="btn btn-primary">Просклонять</button>
           </form>
         </div>
         <div class="col-md-8">
-          <textarea class="sclonenya form-control" style="min-height: 300px; resize: vertical;"></textarea>
+          <textarea class="sclonenya form-control"
+                    style="min-height: 300px; resize: vertical; margin-top: 22px;"></textarea>
         </div>
       </div>
     </div>

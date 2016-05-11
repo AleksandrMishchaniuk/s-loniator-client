@@ -1,25 +1,26 @@
 <?php 
 
-// $word = 'в';
-
-// $word = str_repeat($word, 2);
-// echo mb_strlen($word, 'UTF-8');
-
-// // $word = wordPrepare($word);
-
-// // echo $word;
-// die();
-
 //-----------------------------------------------------------------
 
-$word = '';
+$words_res = [];
 
-if(isset($_POST['word'])){
-  $word = $_POST['word'];
-  $word = wordPrepare($word);
+if(isset($_POST['words'])){
+  $words_str = $_POST['words'];
+
+  $words_arr = preg_split('~[\s_\W]+~u', $words_str);
+  
+  if( $words_arr[count($words_arr)-1] === '' ){
+    array_pop($words_arr);
+  }
+
+  foreach($words_arr as $word){
+    $words_res[] = wordPrepare($word);
+  }
 }
 
-$result = getResultWords($word);
+$words_str = json_encode($words_res);
+
+$result = getResultWords($words_str);
 
 $array = json_decode($result);
 
@@ -45,11 +46,12 @@ function wordPrepare($word){
   return $result;
 }
 
-function getResultWords($word){
+
+function getResultWords($words_str){
   $ch = curl_init('http://localhost:8010/cgi-bin/scloniator.py');
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
   curl_setopt($ch, CURLOPT_POST, 1);
-  curl_setopt($ch, CURLOPT_POSTFIELDS, 'word='.$word);
+  curl_setopt($ch, CURLOPT_POSTFIELDS, 'word='.$words_str);
   $result = curl_exec($ch);
   curl_close($ch);
   return $result;
