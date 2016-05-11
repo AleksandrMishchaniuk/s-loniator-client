@@ -12,6 +12,9 @@ if(isset($_POST['words'])){
   if( $words_arr[count($words_arr)-1] === '' ){
     array_pop($words_arr);
   }
+  if( $words_arr[0] === '' ){
+    array_shift($words_arr);
+  }
 
   foreach($words_arr as $word){
     $words_res[] = wordPrepare($word);
